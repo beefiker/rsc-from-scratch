@@ -3,27 +3,33 @@ import { hydrateRoot } from "react-dom/client";
 const root = hydrateRoot(document, getInitialClientJSX());
 let currentPathname = window.location.pathname;
 
+const cacheMap = new Map();
+cacheMap.set(currentPathname, getInitialClientJSX());
+
 const backgroundColorMap = new Map();
-function setRandomBackgroundColor(pathname) {
-  const body = document.body;
+
+function getBackgroundColor(pathname) {
+  if (backgroundColorMap.has(pathname)) {
+    return backgroundColorMap.get(pathname);
+  }
   const backgroundColor = `#${Math.floor(Math.random() * 16777215).toString(
     16
   )}`;
   backgroundColorMap.set(pathname, backgroundColor);
-  body.style.backgroundColor = backgroundColor;
+  return backgroundColor;
 }
 
-const cacheMap = new Map();
-cacheMap.set(currentPathname, getInitialClientJSX());
-setRandomBackgroundColor(currentPathname);
+const body = document.body;
+body.style.transition = "background-color 0.5s ease-in-out";
+body.style.backgroundColor = getBackgroundColor(currentPathname);
 
 async function navigate(pathname, cache = false) {
   currentPathname = pathname;
 
   if (backgroundColorMap.has(pathname)) {
-    document.body.style.backgroundColor = backgroundColorMap.get(pathname);
+    body.style.backgroundColor = backgroundColorMap.get(pathname);
   } else {
-    setRandomBackgroundColor(pathname);
+    body.style.backgroundColor = getBackgroundColor(pathname);
   }
   if (cache && cacheMap.has(pathname)) {
     console.log(`[CACHE] ${pathname} is cached`);

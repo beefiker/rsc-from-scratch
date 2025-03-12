@@ -10,5 +10,11 @@
     "content": "world",
     "author": "beefiker",
     "createdAt": "2025-03-12T05:28:28.135Z"
+  },
+  {
+    "id": 3,
+    "content": "asd",
+    "author": "fdsaf",
+    "createdAt": "2025-03-12T07:43:24.930Z"
   }
 ]

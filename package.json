@@ -1,0 +1,40 @@
+{
+  "name": "rsc-from-scratch",
+  "description": "React Server Component from Scratch",
+  "version": "1.0.0",
+  "author": "Beefiker",
+  "homepage": "https://github.com/beefiker/rsc-from-scratch",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beefiker/rsc-from-scratch.git"
+  },
+  "keywords": [
+    "react",
+    "server",
+    "component",
+    "ssr",
+    "rsc",
+    "challenge"
+  ],
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/plugin-transform-react-jsx": "^7.21.5",
+    "concurrently": "^9.1.2",
+    "escape-html": "^1.0.3",
+    "nodemon": "^3.1.9",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-markdown": "^10.1.0",
+    "sanitize-filename": "^1.6.3"
+  },
+  "scripts": {
+    "start": "concurrently \"yarn start:ssr\" \"yarn start:rsc\"",
+    "start:rsc": "nodemon -- --experimental-loader ./utils/node-jsx-loader.js ./server/rsc.js",
+    "start:ssr": "nodemon -- --experimental-loader ./utils/node-jsx-loader.js ./server/ssr.js"
+  },
+  "devDependencies": {
+    "@types/node": "22.13.10"
+  }
+}
